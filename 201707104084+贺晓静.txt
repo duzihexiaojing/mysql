@@ -1,0 +1,204 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| duzihexiaojing     |
+| gouwuche           |
+| information_schema |
+| lanpangzi          |
+| mysql              |
+| performance_schema |
+| sys                |
+| tongji2            |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use gouwuche;
+Database changed
+mysql> create table gouwuche(id int(11) primary key not null auto_increment not null,gender varchar(1) not null);
+ERROR 1050 (42S01): Table 'gouwuche' already exists
+mysql> create table 'gouwuche'(id int(11) primary key not null auto_increment not null,gender varchar(1) not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''gouwuche'(id int(11) primary key not null auto_increment not null,gender varcha' at line 1
+mysql> create table gouwuche0(id int(11) primary key not null auto_increment not null,gender varchar(1) not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc gouwuche0;
++--------+------------+------+-----+---------+----------------+
+| Field  | Type       | Null | Key | Default | Extra          |
++--------+------------+------+-----+---------+----------------+
+| id     | int(11)    | NO   | PRI | NULL    | auto_increment |
+| gender | varchar(1) | NO   |     | NULL    |                |
++--------+------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table gouwuche0 add xihuan varchar(1);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table gouwuche0 add zhekoutixing (1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(1)' at line 1
+mysql> alter table gouwuche0 add zhekoutixing varchar(1);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table gouwuche0 shuangshiyiyuanwang varchar(1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shuangshiyiyuanwang varchar(1)' at line 1
+mysql> alter table gouwuche0 'shuangshiyiyuanwang varchar(1)';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''shuangshiyiyuanwang varchar(1)'' at line 1
+mysql> alter table gouwuche0 add shuangshiyiyuanwang varchar(1);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from gouwuche0;
+Empty set (0.00 sec)
+
+mysql> desc gouwuche0;
++---------------------+------------+------+-----+---------+----------------+
+| Field               | Type       | Null | Key | Default | Extra          |
++---------------------+------------+------+-----+---------+----------------+
+| id                  | int(11)    | NO   | PRI | NULL    | auto_increment |
+| gender              | varchar(1) | NO   |     | NULL    |                |
+| xihuan              | varchar(1) | YES  |     | NULL    |                |
+| zhekoutixing        | varchar(1) | YES  |     | NULL    |                |
+| shuangshiyiyuanwang | varchar(1) | YES  |     | NULL    |                |
++---------------------+------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from gouwuche0;
+Empty set (0.00 sec)
+
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang)values(1,0,1,0,1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> desc gouwuche0;
++---------------------+------------+------+-----+---------+----------------+
+| Field               | Type       | Null | Key | Default | Extra          |
++---------------------+------------+------+-----+---------+----------------+
+| id                  | int(11)    | NO   | PRI | NULL    | auto_increment |
+| gender              | varchar(1) | NO   |     | NULL    |                |
+| xihuan              | varchar(1) | YES  |     | NULL    |                |
+| zhekoutixing        | varchar(1) | YES  |     | NULL    |                |
+| shuangshiyiyuanwang | varchar(1) | YES  |     | NULL    |                |
++---------------------+------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang |
++----+--------+--------+--------------+---------------------+
+|  1 | 0      | 1      | 0            | 1                   |
++----+--------+--------+--------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table gouwuche0 add name varchar(10);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc gouwuche0;
++---------------------+-------------+------+-----+---------+----------------+
+| Field               | Type        | Null | Key | Default | Extra          |
++---------------------+-------------+------+-----+---------+----------------+
+| id                  | int(11)     | NO   | PRI | NULL    | auto_increment |
+| gender              | varchar(1)  | NO   |     | NULL    |                |
+| xihuan              | varchar(1)  | YES  |     | NULL    |                |
+| zhekoutixing        | varchar(1)  | YES  |     | NULL    |                |
+| shuangshiyiyuanwang | varchar(1)  | YES  |     | NULL    |                |
+| name                | varchar(10) | YES  |     | NULL    |                |
++---------------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name)values(1,0,1,0,1,lisa);
+ERROR 1054 (42S22): Unknown column 'lisa' in 'field list'
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name)values('1','0','1','0','1','lisa');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name) values('1','0','1','0','1','lisa');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name) values('2','0','1','0','1','lisa');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name |
++----+--------+--------+--------------+---------------------+------+
+|  1 | 0      | 1      | 0            | 1                   | NULL |
+|  2 | 0      | 1      | 0            | 1                   | lisa |
++----+--------+--------+--------------+---------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> update gouwuche0 set name=ben where id=1;
+ERROR 1054 (42S22): Unknown column 'ben' in 'field list'
+mysql> update gouwuche0 set name='ben' where id=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name |
++----+--------+--------+--------------+---------------------+------+
+|  1 | 0      | 1      | 0            | 1                   | ben  |
+|  2 | 0      | 1      | 0            | 1                   | lisa |
++----+--------+--------+--------------+---------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name) values('1','1','0','0','0','david');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+mysql> insert into gouwuche0(id,gender,xihuan,zhekoutixing,shuangshiyiyuanwang,name) values('3','1','0','0','0','david');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+-------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name  |
++----+--------+--------+--------------+---------------------+-------+
+|  1 | 0      | 1      | 0            | 1                   | ben   |
+|  2 | 0      | 1      | 0            | 1                   | lisa  |
+|  3 | 1      | 0      | 0            | 0                   | david |
++----+--------+--------+--------------+---------------------+-------+
+3 rows in set (0.01 sec)
+
+mysql> update gouwuche0 set shuangshiyiyuanwang=ben where id=1;
+ERROR 1054 (42S22): Unknown column 'ben' in 'field list'
+mysql> update gouwuche0 set shuangshiyiyuanwang='ben' where id=1;
+ERROR 1406 (22001): Data too long for column 'shuangshiyiyuanwang' at row 1
+mysql> update gouwuche0 set 'shuangshiyiyuanwang'='ben' where id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''shuangshiyiyuanwang'='ben' where id=1' at line 1
+mysql> update gouwuche0 set shuangshiyiyuanwang=0 where id=1;
+Query OK, 1 row affected (0.08 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+-------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name  |
++----+--------+--------+--------------+---------------------+-------+
+|  1 | 0      | 1      | 0            | 0                   | ben   |
+|  2 | 0      | 1      | 0            | 1                   | lisa  |
+|  3 | 1      | 0      | 0            | 0                   | david |
++----+--------+--------+--------------+---------------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table gouwuche0 add iddelete varchar(1) not null;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+-------+----------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name  | iddelete |
++----+--------+--------+--------------+---------------------+-------+----------+
+|  1 | 0      | 1      | 0            | 0                   | ben   |          |
+|  2 | 0      | 1      | 0            | 1                   | lisa  |          |
+|  3 | 1      | 0      | 0            | 0                   | david |          |
++----+--------+--------+--------------+---------------------+-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> update gouwuche0 set iddelete=0 where id=2;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from gouwuche0;
++----+--------+--------+--------------+---------------------+-------+----------+
+| id | gender | xihuan | zhekoutixing | shuangshiyiyuanwang | name  | iddelete |
++----+--------+--------+--------------+---------------------+-------+----------+
+|  1 | 0      | 1      | 0            | 0                   | ben   |          |
+|  2 | 0      | 1      | 0            | 1                   | lisa  | 0        |
+|  3 | 1      | 0      | 0            | 0                   | david |          |
++----+--------+--------+--------------+---------------------+-------+----------+
+3 rows in set (0.00 sec)
