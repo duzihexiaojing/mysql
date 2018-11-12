@@ -1,417 +1,94 @@
+Microsoft Windows [版本 10.0.17134.345]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\Users\asus>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 55
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| duzihexiaojing     |
+| gouwuche           |
+| information_schema |
+| lanpangzi          |
+| mysql              |
+| performance_schema |
+| sys                |
+| tongji2            |
++--------------------+
+8 rows in set (0.05 sec)
+
 mysql> use lanpangzi;
 Database changed
-mysql> show lanpangzi;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'lanpangzi' at line 1
-mysql> show tables;
-+---------------------+
-| Tables_in_lanpangzi |
-+---------------------+
-| countries           |
-| departments         |
-| employees           |
-| job_history         |
-| jobs                |
-| locations           |
-| regions             |
-+---------------------+
-7 rows in set (0.01 sec)
+mysql> create table shoucangbiao(id int auto_increment primary key,name varchar(20) not null unique,mingcheng varchar(20), not null,shoucang int not null);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null,shoucang int not null)' at line 1
+mysql> create table shoucangbiao(id int auto_increment primary key,name varchar(20) not null unique,mingcheng varchar(20) not null,shoucang int not null);
+Query OK, 0 rows affected (0.11 sec)
 
-mysql> select * from departments;
-+---------------+----------------------+------------+-------------+
-| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
-+---------------+----------------------+------------+-------------+
-|            10 | Administration       | 200        | 1700        |
-|            20 | Marketing            | 201        | 1800        |
-|            30 | Purchasing           | 114        | 1700        |
-|            40 | Human Resources      | 203        | 2400        |
-|            50 | Shipping             | 121        | 1500        |
-|            60 | IT                   | 103        | 1400        |
-|            70 | Public Relations     | 204        | 2700        |
-|            80 | Sales                | 145        | 2500        |
-|            90 | Executive            | 100        | 1700        |
-|           100 | Finance              | 108        | 1700        |
-|           110 | Accounting           | 205        | 1700        |
-|           120 | Treasury             |            | 1700        |
-|           130 | Corporate Tax        |            | 1700        |
-|           140 | Control And Credit   |            | 1700        |
-|           150 | Shareholder Services |            | 1700        |
-|           160 | Benefits             |            | 1700        |
-|           170 | Manufacturing        |            | 1700        |
-|           180 | Construction         |            | 1700        |
-|           190 | Contracting          |            | 1700        |
-|           200 | Operations           |            | 1700        |
-|           210 | IT Support           |            | 1700        |
-|           220 | NOC                  |            | 1700        |
-|           230 | IT Helpdesk          |            | 1700        |
-|           240 | Government Sales     |            | 1700        |
-|           250 | Retail Sales         |            | 1700        |
-|           260 | Recruiting           |            | 1700        |
-|           270 | Payroll              |            | 1700        |
-+---------------+----------------------+------------+-------------+
-27 rows in set (0.01 sec)
+mysql> desc shoucangbiao;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name      | varchar(20) | NO   | UNI | NULL    |                |
+| mingcheng | varchar(20) | NO   |     | NULL    |                |
+| shoucang  | int(11)     | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
 
-mysql> select * from job_history;
-+-------------+------------+------------+------------+---------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID |
-+-------------+------------+------------+------------+---------------+
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |
-+-------------+------------+------------+------------+---------------+
-10 rows in set (0.00 sec)
+mysql> insert into shoucangbiao(id,name,mingcheng,shoucang)values(1,'hxj','bag',2),(2,'mjn','ipad',1),(3,'zwj','cup',1),(4,'ch','watch',1);
+Query OK, 4 rows affected (0.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
 
-mysql> select * from job_history where job_id;
-Empty set, 10 warnings (0.00 sec)
-
-mysql> select * from job_history where job_id=ac_mgr;
-ERROR 1054 (42S22): Unknown column 'ac_mgr' in 'where clause'
-mysql> select distinct job_id from jio_history;
-ERROR 1146 (42S02): Table 'lanpangzi.jio_history' doesn't exist
-mysql> select distinct job_id from job_history;
-+------------+
-| job_id     |
-+------------+
-| IT_PROG    |
-| AC_ACCOUNT |
-| AC_MGR     |
-| MK_REP     |
-| ST_CLERK   |
-| AD_ASST    |
-| SA_REP     |
-| SA_MAN     |
-+------------+
-8 rows in set (0.00 sec)
-
-mysql> select * from departments where DEPARTMENT_NAME=Purchasing;
-ERROR 1054 (42S22): Unknown column 'Purchasing' in 'where clause'
-mysql> select * from departments where MANAGER_ID=203;
-+---------------+-----------------+------------+-------------+
-| DEPARTMENT_ID | DEPARTMENT_NAME | MANAGER_ID | LOCATION_ID |
-+---------------+-----------------+------------+-------------+
-|            40 | Human Resources | 203        | 2400        |
-+---------------+-----------------+------------+-------------+
-1 row in set (0.00 sec)
-
-mysql>  select * from departments where LOCATION_ID>1700 or LOCATION_I>1800;
-ERROR 1054 (42S22): Unknown column 'LOCATION_I' in 'where clause'
-mysql>  select * from departments where LOCATION_ID>1700 or LOCATION_ID>1800;
-+---------------+------------------+------------+-------------+
-| DEPARTMENT_ID | DEPARTMENT_NAME  | MANAGER_ID | LOCATION_ID |
-+---------------+------------------+------------+-------------+
-|            20 | Marketing        | 201        | 1800        |
-|            40 | Human Resources  | 203        | 2400        |
-|            70 | Public Relations | 204        | 2700        |
-|            80 | Sales            | 145        | 2500        |
-+---------------+------------------+------------+-------------+
+mysql> select * from shoucangbiao;
++----+------+-----------+----------+
+| id | name | mingcheng | shoucang |
++----+------+-----------+----------+
+|  1 | hxj  | bag       |        2 |
+|  2 | mjn  | ipad      |        1 |
+|  3 | zwj  | cup       |        1 |
+|  4 | ch   | watch     |        1 |
++----+------+-----------+----------+
 4 rows in set (0.00 sec)
 
-mysql>  select * from job_history order by sal;
-ERROR 1054 (42S22): Unknown column 'sal' in 'order clause'
-mysql>  select * from job_history order by DEPARTMENT_ID;
-+-------------+------------+------------+------------+---------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID |
-+-------------+------------+------------+------------+---------------+
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |
-+-------------+------------+------------+------------+---------------+
-10 rows in set (0.00 sec)
-
-mysql>  select * from job_history order by DEPARTMENT_ID,EMPLOYEE_ID desc;
-+-------------+------------+------------+------------+---------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID |
-+-------------+------------+------------+------------+---------------+
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |
-+-------------+------------+------------+------------+---------------+
-10 rows in set (0.00 sec)
-
-mysql> select * from job_history order by DEPARTMENT_ID limit 1,3;
-+-------------+------------+------------+----------+---------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID   | DEPARTMENT_ID |
-+-------------+------------+------------+----------+---------------+
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR   | 110           |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP   | 20            |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK | 50            |
-+-------------+------------+------------+----------+---------------+
-3 rows in set (0.00 sec)
-
-mysql> select sum(DEPARTMENT_ID) from job_history;
-+--------------------+
-| sum(DEPARTMENT_ID) |
-+--------------------+
-|                740 |
-+--------------------+
+mysql> select * from shoucangbiao where id=2;
++----+------+-----------+----------+
+| id | name | mingcheng | shoucang |
++----+------+-----------+----------+
+|  2 | mjn  | ipad      |        1 |
++----+------+-----------+----------+
 1 row in set (0.00 sec)
 
-mysql> select sum(EMPLOYEE_ID) from job_history;
-+------------------+
-| sum(EMPLOYEE_ID) |
-+------------------+
-|             1493 |
-+------------------+
+mysql> select * from shoucangbiao where id=bag;
+ERROR 1054 (42S22): Unknown column 'bag' in 'where clause'
+mysql> select * from shoucangbiao where mingcheng=bag;
+ERROR 1054 (42S22): Unknown column 'bag' in 'where clause'
+mysql> select * from shoucangbiao where mingcheng='bag';
++----+------+-----------+----------+
+| id | name | mingcheng | shoucang |
++----+------+-----------+----------+
+|  1 | hxj  | bag       |        2 |
++----+------+-----------+----------+
 1 row in set (0.00 sec)
 
-mysql> select max(EMPLOYEE_ID) from job_history;
-+------------------+
-| max(EMPLOYEE_ID) |
-+------------------+
-| 201              |
-+------------------+
-1 row in set (0.01 sec)
+mysql> select name from shoucangbiao where name='ch';
++------+
+| name |
++------+
+| ch   |
++------+
+1 row in set (0.00 sec)
 
-mysql>  select age,sum(EMPLOYEE_ID) from job_history group by (EMPLOYEE_ID);
-ERROR 1054 (42S22): Unknown column 'age' in 'field list'
-mysql>  select EMPLOYEE_ID,sum(EMPLOYEE_ID) from job_history group by (EMPLOYEE_ID);
-+-------------+------------------+
-| EMPLOYEE_ID | sum(EMPLOYEE_ID) |
-+-------------+------------------+
-| 102         |              102 |
-| 101         |              202 |
-| 201         |              201 |
-| 114         |              114 |
-| 122         |              122 |
-| 200         |              400 |
-| 176         |              352 |
-+-------------+------------------+
-7 rows in set (0.01 sec)
-
-mysql> select EMPLOYEE_ID,sum(EMPLOYEE_ID),max(EMPLOYEE_ID),START_DATE from job_history group by EMPLOYEE_ID,START_DATE;
-+-------------+------------------+------------------+------------+
-| EMPLOYEE_ID | sum(EMPLOYEE_ID) | max(EMPLOYEE_ID) | START_DATE |
-+-------------+------------------+------------------+------------+
-| 102         |              102 | 102              | 2001/1/13  |
-| 101         |              101 | 101              | 1997/9/21  |
-| 101         |              101 | 101              | 2001/10/28 |
-| 201         |              201 | 201              | 2004/2/17  |
-| 114         |              114 | 114              | 2006/3/24  |
-| 122         |              122 | 122              | 2007/1/1   |
-| 200         |              200 | 200              | 1995/9/17  |
-| 176         |              176 | 176              | 2006/3/24  |
-| 176         |              176 | 176              | 2007/1/1   |
-| 200         |              200 | 200              | 2002/7/1   |
-+-------------+------------------+------------------+------------+
-10 rows in set (0.00 sec)
-
-mysql> select  EMPLOYEE_ID,count( EMPLOYEE_ID) from job_history  group by  EMPLOYEE_ID;
-+-------------+---------------------+
-| EMPLOYEE_ID | count( EMPLOYEE_ID) |
-+-------------+---------------------+
-| 102         |                   1 |
-| 101         |                   2 |
-| 201         |                   1 |
-| 114         |                   1 |
-| 122         |                   1 |
-| 200         |                   2 |
-| 176         |                   2 |
-+-------------+---------------------+
-7 rows in set (0.00 sec)
-
-mysql> select count(distinct EMPLOYEE_ID) from job_history;
-+-----------------------------+
-| count(distinct EMPLOYEE_ID) |
-+-----------------------------+
-|                           7 |
-+-----------------------------+
-1 row in set (0.01 sec)
-
-mysql> select EMPLOYEE_ID,sum( EMPLOYEE_ID),max( EMPLOYEE_ID),DEPARTMENT_ID from job_history group by  EMPLOYEE_ID,DEPARTMENT_ID having DEPARTMENT_ID>50;
-+-------------+-------------------+-------------------+---------------+
-| EMPLOYEE_ID | sum( EMPLOYEE_ID) | max( EMPLOYEE_ID) | DEPARTMENT_ID |
-+-------------+-------------------+-------------------+---------------+
-| 102         |               102 | 102               | 60            |
-| 101         |               202 | 101               | 110           |
-| 200         |               400 | 200               | 90            |
-| 176         |               352 | 176               | 80            |
-+-------------+-------------------+-------------------+---------------+
-4 rows in set (0.01 sec)
-
-mysql> select EMPLOYEE_ID,sum( EMPLOYEE_ID),max( EMPLOYEE_ID),DEPARTMENT_ID from job_history where DEPARTMENT_ID>50 group by EMPLOYEE_ID,DEPARTMENT_ID with rollup;
-+-------------+-------------------+-------------------+---------------+
-| EMPLOYEE_ID | sum( EMPLOYEE_ID) | max( EMPLOYEE_ID) | DEPARTMENT_ID |
-+-------------+-------------------+-------------------+---------------+
-| 101         |               202 | 101               | 110           |
-| 101         |               202 | 101               | NULL          |
-| 102         |               102 | 102               | 60            |
-| 102         |               102 | 102               | NULL          |
-| 176         |               352 | 176               | 80            |
-| 176         |               352 | 176               | NULL          |
-| 200         |               400 | 200               | 90            |
-| 200         |               400 | 200               | NULL          |
-| NULL        |              1056 | 200               | NULL          |
-+-------------+-------------------+-------------------+---------------+
-9 rows in set (0.01 sec)
-
-mysql> select * from job_history where job_history.DEPARTMENT_ID=departments.DEPARTMENT_ID;
-ERROR 1054 (42S22): Unknown column 'departments.DEPARTMENT_ID' in 'where clause'
-mysql> select * from job_history,departments where job_history.DEPARTMENT_ID=departments.DEPARTMENT_ID;
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID | DEPARTMENT_ID | DEPARTMENT_NAME | MANAGER_ID | LOCATION_ID |
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |            60 | IT              | 103        | 1400        |
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |           110 | Accounting      | 205        | 1700        |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |           110 | Accounting      | 205        | 1700        |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |            20 | Marketing       | 201        | 1800        |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping        | 121        | 1500        |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping        | 121        | 1500        |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |            90 | Executive       | 100        | 1700        |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |            80 | Sales           | 145        | 2500        |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |            80 | Sales           | 145        | 2500        |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |            90 | Executive       | 100        | 1700        |
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-10 rows in set (0.00 sec)
-
-mysql> select * from job_history left join departments on job_history.DEPARTMENT_ID=departments.DEPARTMENT_ID;
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID | DEPARTMENT_ID | DEPARTMENT_NAME | MANAGER_ID | LOCATION_ID |
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |            60 | IT              | 103        | 1400        |
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |           110 | Accounting      | 205        | 1700        |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |           110 | Accounting      | 205        | 1700        |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |            20 | Marketing       | 201        | 1800        |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping        | 121        | 1500        |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping        | 121        | 1500        |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |            90 | Executive       | 100        | 1700        |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |            80 | Sales           | 145        | 2500        |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |            80 | Sales           | 145        | 2500        |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |            90 | Executive       | 100        | 1700        |
-+-------------+------------+------------+------------+---------------+---------------+-----------------+------------+-------------+
-10 rows in set (0.00 sec)
-
-mysql> select * from job_history right join departments on job_history.DEPARTMENT_ID=departments.DEPARTMENT_ID;
-+-------------+------------+------------+------------+---------------+---------------+----------------------+------------+-------------+
-| EMPLOYEE_ID | START_DATE | END_DATE   | JOB_ID     | DEPARTMENT_ID | DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
-+-------------+------------+------------+------------+---------------+---------------+----------------------+------------+-------------+
-| 102         | 2001/1/13  | 2006/7/24  | IT_PROG    | 60            |            60 | IT                   | 103        | 1400        |
-| 101         | 1997/9/21  | 2001/10/27 | AC_ACCOUNT | 110           |           110 | Accounting           | 205        | 1700        |
-| 101         | 2001/10/28 | 2005/3/15  | AC_MGR     | 110           |           110 | Accounting           | 205        | 1700        |
-| 201         | 2004/2/17  | 2007/12/19 | MK_REP     | 20            |            20 | Marketing            | 201        | 1800        |
-| 114         | 2006/3/24  | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping             | 121        | 1500        |
-| 122         | 2007/1/1   | 2007/12/31 | ST_CLERK   | 50            |            50 | Shipping             | 121        | 1500        |
-| 200         | 1995/9/17  | 2001/6/17  | AD_ASST    | 90            |            90 | Executive            | 100        | 1700        |
-| 176         | 2006/3/24  | 2006/12/31 | SA_REP     | 80            |            80 | Sales                | 145        | 2500        |
-| 176         | 2007/1/1   | 2007/12/31 | SA_MAN     | 80            |            80 | Sales                | 145        | 2500        |
-| 200         | 2002/7/1   | 2006/12/31 | AC_ACCOUNT | 90            |            90 | Executive            | 100        | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |            10 | Administration       | 200        | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |            30 | Purchasing           | 114        | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |            40 | Human Resources      | 203        | 2400        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |            70 | Public Relations     | 204        | 2700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           100 | Finance              | 108        | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           120 | Treasury             |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           130 | Corporate Tax        |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           140 | Control And Credit   |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           150 | Shareholder Services |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           160 | Benefits             |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           170 | Manufacturing        |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           180 | Construction         |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           190 | Contracting          |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           200 | Operations           |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           210 | IT Support           |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           220 | NOC                  |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           230 | IT Helpdesk          |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           240 | Government Sales     |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           250 | Retail Sales         |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           260 | Recruiting           |            | 1700        |
-| NULL        | NULL       | NULL       | NULL       | NULL          |           270 | Payroll              |            | 1700        |
-+-------------+------------+------------+------------+---------------+---------------+----------------------+------------+-------------+
-31 rows in set (0.00 sec)
-
-mysql> select * from departments  where exists (select DEPARTMENT_ID from job_history  where DEPARTMENT_ID=50);
-+---------------+----------------------+------------+-------------+
-| DEPARTMENT_ID | DEPARTMENT_NAME      | MANAGER_ID | LOCATION_ID |
-+---------------+----------------------+------------+-------------+
-|            10 | Administration       | 200        | 1700        |
-|            20 | Marketing            | 201        | 1800        |
-|            30 | Purchasing           | 114        | 1700        |
-|            40 | Human Resources      | 203        | 2400        |
-|            50 | Shipping             | 121        | 1500        |
-|            60 | IT                   | 103        | 1400        |
-|            70 | Public Relations     | 204        | 2700        |
-|            80 | Sales                | 145        | 2500        |
-|            90 | Executive            | 100        | 1700        |
-|           100 | Finance              | 108        | 1700        |
-|           110 | Accounting           | 205        | 1700        |
-|           120 | Treasury             |            | 1700        |
-|           130 | Corporate Tax        |            | 1700        |
-|           140 | Control And Credit   |            | 1700        |
-|           150 | Shareholder Services |            | 1700        |
-|           160 | Benefits             |            | 1700        |
-|           170 | Manufacturing        |            | 1700        |
-|           180 | Construction         |            | 1700        |
-|           190 | Contracting          |            | 1700        |
-|           200 | Operations           |            | 1700        |
-|           210 | IT Support           |            | 1700        |
-|           220 | NOC                  |            | 1700        |
-|           230 | IT Helpdesk          |            | 1700        |
-|           240 | Government Sales     |            | 1700        |
-|           250 | Retail Sales         |            | 1700        |
-|           260 | Recruiting           |            | 1700        |
-|           270 | Payroll              |            | 1700        |
-+---------------+----------------------+------------+-------------+
-27 rows in set (0.00 sec)
-
-mysql> select JOB_ID  from job_history union all select MANAGER_ID from departments;
-+------------+
-| JOB_ID     |
-+------------+
-| IT_PROG    |
-| AC_ACCOUNT |
-| AC_MGR     |
-| MK_REP     |
-| ST_CLERK   |
-| ST_CLERK   |
-| AD_ASST    |
-| SA_REP     |
-| SA_MAN     |
-| AC_ACCOUNT |
-| 200        |
-| 201        |
-| 114        |
-| 203        |
-| 121        |
-| 103        |
-| 204        |
-| 145        |
-| 100        |
-| 108        |
-| 205        |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-|            |
-+------------+
-37 rows in set (0.01 sec)
+mysql>
