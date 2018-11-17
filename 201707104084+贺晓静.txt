@@ -1,51 +1,47 @@
 use gouwuche;
 
-drop table if exists yonghu;
 
-create table yonghu(
-
-yonghu_id smallint unsigned not null auto_increment primary key,
-
-yonghu_name varchar(40) not null,
-
-zhuangbei_id smallint unsigned not null,
-
-last_update timestamp not null default current_timestamp on update current_timestamp,
-
-key `idx_fk_zhuangbei_id` (zhuangbei_id),
-
-constraint `fk_city_zhuangbei` foreign key(zhuangbei_id)
-
-references zhuangbei(zhuangbei_id) 
-
-on delete restrict on update cascade
-
-)engine=innodb default charset=utf8;
+create or replace view view_x_j(yonghu_name,money)as 
+select yonghu.yonghu_name,zhuangbei.money from yonghu,zhuangbei;
 
 
 
-use gouwuche;
 
-drop table if exists zhuangbei;
+mysql> use gouwuche;
+Database changed
+mysql> update view_x_j set money=5;
+ERROR 1054 (42S22): Unknown column 'money' in 'field list'
+mysql> update view_x_j set zhuangbei_money=5;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 3  Changed: 0  Warnings: 0
 
-create table zhuangbei(
+mysql> select * from view_x_j;
++-------------+-----------------+
+| yonghu_name | zhuangbei_money |
++-------------+-----------------+
+| ha          |               5 |
+| hei         |               5 |
+| he          |               5 |
+| ha          |               5 |
+| hei         |               5 |
+| he          |               5 |
+| ha          |               5 |
+| hei         |               5 |
+| he          |               5 |
++-------------+-----------------+
+9 rows in set (0.00 sec)
 
-zhuangbei_id smallint unsigned not null auto_increment,
+mysql>
 
-zhuangbei_name varchar(40) not null,
-
-money int unsigned not null,
-
-last_update timestamp default current_timestamp on update current_timestamp,
-
-primary key(zhuangbei_id)
-
-)engine=innodb default charset=utf8;
 
 
 
 use gouwuche;
 
-insert into zhuangbei(zhuangbei_name,money)value('hhh',123),('kkk',1470),('ggg',36950);
+create or replace view view_a_s(money,count_money)as
+select money,count(money) from zhuangbei group by money;
 
-insert into yonghu(yonghu_name,zhuangbei_id)value('ha',1),('hei',2),('he',3);
+
+
+money	count_money
+5	3
